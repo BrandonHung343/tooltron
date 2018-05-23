@@ -32,12 +32,12 @@ def check_clearances(id, c, column_name, table_name, id_column):
 	return False
 
 
-def power_on():
+def power_on(relay):
     # assuming it latches
     GPIO.output(relay, GPIO.HIGH)
 
 
-def power_off():
+def power_off(relay):
     GPIO.output(relay, GPIO.LOW)
 
 
@@ -54,6 +54,8 @@ def main():
     db = "" #insert name here
     conn = sqlite3.connect(db)
     c = conn.cursor()
+    relay = 0 #pick a pin, any pin
+    GPIO.setup(relay, GPIO.output)
     column_list = c.execute("PRAGMA table_info{db}".format(db = db)).fetchall()
     table_name = str(c.execute("SELECT name FROM sqlite_master WHERE type='table';").fetchone())
     # adjust as necessary
@@ -89,7 +91,7 @@ def main():
 
             if check_clearances(id_num, c, column_name, table_name, id_column):
                 state = not state
-                power_on() if state == 1 else power_off()
+                power_on(relay) if state == 1 else power_off(relay)
 
         elif debounce != 0:
             assert(debounce > 0)
