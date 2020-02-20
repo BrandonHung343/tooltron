@@ -19,19 +19,19 @@ def mill_clearance(id_number):
     query = db.query_db(db_name, tb_name, id_col, (id_number,), (mill_col,))
     if len(query) > 0:
         return query[0][0]
-    print("ID is not in the system")
+    return -1
     
 def lathe_clearance(id_number):
-    return db.query_db(db_name, tb_name, id_col, (id_number,), (lathe_col,))
+    query = db.query_db(db_name, tb_name, id_col, (id_number,), (lathe_col,))
     if len(query) > 0:
         return query[0][0]
-    print("ID is not in the system")
+    return -1
 
 def machine_clearance(id_number):
-    return db.query_db(db_name, tb_name, id_col, (id_number,), (machine_col,))
+    query = db.query_db(db_name, tb_name, id_col, (id_number,), (machine_col,))
     if len(query) > 0:
         return query[0][0]
-    print("ID is not in the system")
+    return -1
 
 # set the person's clearance bit
 def update_mill(id_number, cleared_or_not):
