@@ -54,6 +54,7 @@ def remove_person(id_number):
     db.remove_entry(db_name, tb_name, id_col, (id_number,))
 
 def view_db():
+    db.get_col_names(db_name, tb_name)
     db.get_table_info(db_name, tb_name)
 
 # def power_on(relay):

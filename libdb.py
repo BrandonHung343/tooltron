@@ -94,6 +94,13 @@ def query_db(db_name, table_name, cond, values, columns=None):
 	conn.close()
 	return queried
 
+def get_col_names(db_name, table_name):
+	conn = sqlite3.connect(db_name)
+	c = conn.cursor()
+	c.execute('SELECT * FROM {tn}'.format(tn=table_name))
+	names = [thing[0] for thing in c.description]
+	print(names)
+
 # print everyone in the table
 def get_table_info(db_name, table_name):
 	conn = sqlite3.connect(db_name)
